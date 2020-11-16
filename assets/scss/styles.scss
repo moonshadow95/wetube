@@ -1,5 +1,6 @@
 @import "config/_variables.scss"; // sass 파일 이라서 _ 붙임 유저는 사용하지 않음
 @import "config/reset.scss";
+@import "config/utils.scss";
 @import "main.scss";
 
 //Partials
@@ -12,3 +13,4 @@
 //Pages
 @import "pages/home.scss";
 @import "pages/videoDetail.scss";
+@import "pages/userProfile.scss";

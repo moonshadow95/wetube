@@ -1,3 +1,5 @@
+/* eslint-disable comma-dangle */
+/* eslint-disable quotes */
 import passport from "passport";
 import GithubStrategy from "passport-github";
 import User from "./models/User";
@@ -11,7 +13,7 @@ passport.use(
     {
       clientID: process.env.GH_ID,
       clientSecret: process.env.GH_SECRET,
-      callbackURL: `http://localhost:5000/${routes.githubCallback}`,
+      callbackURL: `http://localhost:5000${routes.githubCallback}`,
     },
     githubLoginCallback
   )

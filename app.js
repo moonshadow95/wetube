@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
@@ -21,7 +22,11 @@ const CookieStore = MongoStore(session);
 
 console.log(process.env.COOKIE_SECRET);
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 app.set("view engine", "pug");
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("static"));
