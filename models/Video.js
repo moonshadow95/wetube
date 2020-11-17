@@ -1,4 +1,6 @@
-import mongoose from "mongoose";
+/* eslint-disable no-unused-vars */
+/* eslint-disable quotes */
+import mongoose, { mongo } from "mongoose";
 
 const VideoSchema = new mongoose.Schema({
   fileUrl: {
@@ -17,6 +19,16 @@ const VideoSchema = new mongoose.Schema({
   createAt: {
     type: Date,
     default: Date.now,
+  },
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+    },
+  ],
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
 });
 
