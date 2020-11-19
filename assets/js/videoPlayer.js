@@ -91,7 +91,6 @@ function handleEnded() {
   videoPlayer.currentTime = 0;
   playBtn.innerHTML = '<i class="fas fa-play"></i>';
 }
-
 function handleDrag(event) {
   const {
     target: { value },
@@ -99,12 +98,10 @@ function handleDrag(event) {
   videoPlayer.volume = value;
   if (value >= 0.6) {
     volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-  } else if (value >= 0.4) {
-    volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
   } else if (value >= 0.2) {
-    volumeBtn.innerHTML = '<i class="fas fa-volume-off"></i>';
+    volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
   } else {
-    volumeBtn.innerHTML = '<i class="fas fa-mute"></i>';
+    volumeBtn.innerHTML = '<i class="fas fa-volume-off"></i>';
   }
 }
 
@@ -114,7 +111,7 @@ function init() {
   volumeBtn.addEventListener("click", handleVolumneClick);
   fullScrBtn.addEventListener("click", goFullScreen);
   videoPlayer.addEventListener("loadedmetadata", setTotalTime);
-  videoPlayer.addEventListener("ended");
+  videoPlayer.addEventListener("ended", handleEnded);
   volumeRange.addEventListener("input", handleDrag);
 }
 

@@ -1,6 +1,7 @@
 doctype html
 html
     head
+        meta(http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';")
         link(rel="stylesheet",href="https://use.fontawesome.com/releases/v5.15.1/css/all.css",integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp",crossorigin="anonymous")
         title #{pageTitle} | #{siteName}
         link(rel="stylesheet", href="/static/main.css")
