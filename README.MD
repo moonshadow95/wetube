@@ -4,13 +4,15 @@ Cloning Youtube with Vanilla and NodeJS
 
 ## Pages:
 
-- [] Home
+- [x] Home
 - [x] Join
 - [x] Login
 - [x] Search
-- [] User Detail
+- [x] User Detail
 - [x] Eidt Profile
 - [x] Change Password
 - [x] Upload
-- [] Video Detail
+- [x] Video Detail
 - [x] Edit Video
+- [x] Multer Upload to AWS S3
+- [ ] Bug Fix
