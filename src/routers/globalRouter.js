@@ -1,5 +1,3 @@
-/* eslint-disable comma-dangle */
-/* eslint-disable quotes */
 import express from "express";
 import passport from "passport";
 import routes from "../routes";
