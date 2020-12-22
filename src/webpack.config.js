@@ -33,7 +33,7 @@ const config = {
               postcssOptions: {
                 plugins: [
                   [
-                    "autoprefixer",
+                    autoprefixer,
                     {
                       overrideBrowserslist: "cover 99.5%",
                     },
@@ -58,7 +58,6 @@ const config = {
       filename: "[name].css",
     }),
   ],
-  devtool: "inline-source-map",
 };
 
 module.exports = config;
