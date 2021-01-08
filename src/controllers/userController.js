@@ -16,7 +16,7 @@ export const postJoin = async (req, res, next) => {
   } = req;
   if (password !== password2) {
     res.status(400);
-    // eslint-disable-next-line quotes
+    req.flash("error", "Passwords don't match");
     res.render("join", { pageTitle: "Join" });
   } else {
     try {
@@ -39,9 +39,14 @@ export const getLogin = (req, res) =>
 export const postLogin = passport.authenticate("local", {
   failureRedirect: routes.login,
   successRedirect: routes.home,
+  successFlash: "Welcome",
+  failureFlash: "Can't log in. Check email and/or password",
 });
 
-export const githubLogin = passport.authenticate("github");
+export const githubLogin = passport.authenticate("github", {
+  successFlash: "Welcome",
+  failureFlash: "Can't log in at this time",
+});
 
 export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
