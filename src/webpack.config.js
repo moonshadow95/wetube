@@ -58,6 +58,7 @@ const config = {
       filename: "[name].css",
     }),
   ],
+  node: "empty",
 };
 
 module.exports = config;
