@@ -1,4 +1,4 @@
-const recorderContainer = document.getElementById("jsRecorderContainer");
+const recorderContainer = document.getElementById("jsRecordContainer");
 const recordBtn = document.getElementById("jsRecordBtn");
 const videoPreview = document.getElementById("jsVideoPreview");
 
@@ -14,18 +14,18 @@ const handleVideoData = (event) => {
   link.click();
 };
 
+const stopRecording = () => {
+  videoRecorder.stop();
+  recordBtn.removeEventListener("click", stopRecording);
+  recordBtn.addEventListener("click", getVideo);
+  recordBtn.innerHTML = "Start recording";
+};
+
 const startRecording = () => {
   videoRecorder = new MediaRecorder(streamObject);
   videoRecorder.start();
   videoRecorder.addEventListener("dataavailable", handleVideoData);
   recordBtn.addEventListener("click", stopRecording);
-};
-
-const stopRecording = () => {
-  videoRecorder.stop();
-  recordBtn.removeEventListener("click", stopRecording);
-  recordBtn.addEventListener("click", getVideo);
-  recordBtn.innerHTML = "Start Recording";
 };
 
 const getVideo = async () => {
@@ -37,12 +37,11 @@ const getVideo = async () => {
     videoPreview.srcObject = stream;
     videoPreview.muted = true;
     videoPreview.play();
-    recordBtn.innerHTML = "Stop Recording";
+    recordBtn.innerHTML = "Stop recording";
     streamObject = stream;
     startRecording();
   } catch (error) {
-    recordBtn.innerHTML = "☹️ Can't Record";
-    recordBtn.removeEventListener("click", getVideo);
+    recordBtn.innerHTML = "☹️ Can't record";
   } finally {
     recordBtn.removeEventListener("click", getVideo);
   }

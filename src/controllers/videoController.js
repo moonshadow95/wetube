@@ -1,6 +1,3 @@
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable no-console */
-/* eslint-disable quotes */
 import routes from "../routes";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
@@ -24,7 +21,6 @@ export const search = async (req, res) => {
     query: { term: searchingBy },
   } = req;
   let videos = [];
-  // const searchingBy = req.query.term;
   try {
     videos = await Video.find({
       title: { $regex: searchingBy, $options: "i" },
@@ -32,11 +28,7 @@ export const search = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-  res.render("search", {
-    pageTitle: "Search",
-    searchingBy /*: searchingBy */,
-    videos,
-  });
+  res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
 
 // Upload
@@ -84,7 +76,7 @@ export const getEditVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    if (video.creator !== req.user.id) {
+    if (String(video.creator) !== req.user.id) {
       throw Error();
     } else {
       res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
@@ -115,7 +107,7 @@ export const deleteVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    if (video.creator !== req.user.id) {
+    if (String(video.creator) !== req.user.id) {
       throw Error();
     } else {
       await Video.findOneAndRemove({ _id: id });
@@ -161,6 +153,7 @@ export const postAddComment = async (req, res) => {
     video.comments.push(newComment.id);
     video.save();
   } catch (error) {
+    console.log(error);
     res.status(400);
   } finally {
     res.end();

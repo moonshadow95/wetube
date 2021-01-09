@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import "./models/Video";
 
 dotenv.config();
 

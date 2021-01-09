@@ -20,9 +20,7 @@ import "./passport";
 
 const app = express();
 
-const CookieStore = MongoStore(session);
-
-console.log(process.env.COOKIE_SECRET);
+const CokieStore = MongoStore(session);
 
 app.use(
   helmet({
@@ -41,7 +39,7 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     resave: true,
     saveUninitialized: false,
-    store: new CookieStore({ mongooseConnection: mongoose.connection }),
+    store: new CokieStore({ mongooseConnection: mongoose.connection }),
   })
 );
 app.use(flash());

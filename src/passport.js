@@ -13,7 +13,9 @@ passport.use(
     {
       clientID: process.env.GH_ID,
       clientSecret: process.env.GH_SECRET,
-      callbackURL: `http://localhost:5000${routes.githubCallback}`,
+      callbackURL: process.env.PRODUCTION
+        ? `https://afternoon-savannah-97012.herokuapp.com${routes.githubCallback}`
+        : `http://localhost:4000${routes.githubCallback}`,
     },
     githubLoginCallback
   )

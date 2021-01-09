@@ -1,7 +1,3 @@
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable object-curly-newline */
-/* eslint-disable no-console */
-/* eslint-disable quotes */
 import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
@@ -15,8 +11,8 @@ export const postJoin = async (req, res, next) => {
     body: { name, email, password, password2 },
   } = req;
   if (password !== password2) {
-    res.status(400);
     req.flash("error", "Passwords don't match");
+    res.status(400);
     res.render("join", { pageTitle: "Join" });
   } else {
     try {
@@ -50,7 +46,7 @@ export const githubLogin = passport.authenticate("github", {
 
 export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
-    _json: { id, avatarUrl, name, email },
+    _json: { id, avatar_url: avatarUrl, name, email },
   } = profile;
   try {
     const user = await User.findOne({ email });
@@ -71,20 +67,23 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
   }
 };
 
-export const postGithubLogin = (req, res) => {
+export const postGithubLogIn = (req, res) => {
   res.redirect(routes.home);
 };
 
 export const logout = (req, res) => {
+  req.flash("info", "Logged out, see you later");
   req.logout();
   res.redirect(routes.home);
 };
 
-export const getMe = (req, res) => {
-  res.render("userDetail", {
-    pageTitle: "User Detail",
-    user: req.user /* 로그인된 사용자 */,
-  });
+export const getMe = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).populate("videos");
+    res.render("userDetail", { pageTitle: "User Detail", user });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
 };
 
 export const userDetail = async (req, res) => {
@@ -93,12 +92,13 @@ export const userDetail = async (req, res) => {
   } = req;
   try {
     const user = await User.findById(id).populate("videos");
-    console.log(user);
     res.render("userDetail", { pageTitle: "User Detail", user });
   } catch (error) {
+    req.flash("error", "User not found");
     res.redirect(routes.home);
   }
 };
+
 export const getEditProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "Edit Profile" });
 
@@ -113,20 +113,24 @@ export const postEditProfile = async (req, res) => {
       email,
       avatarUrl: file ? file.location : req.user.avatarUrl,
     });
+    req.flash("success", "Profile updated");
     res.redirect(routes.me);
   } catch (error) {
+    req.flash("error", "Can't update profile");
     res.redirect(routes.editProfile);
   }
 };
 
 export const getChangePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "Change Password" });
+
 export const postChangePassword = async (req, res) => {
   const {
     body: { oldPassword, newPassword, newPassword1 },
   } = req;
   try {
     if (newPassword !== newPassword1) {
+      req.flash("error", "Passwords don't match");
       res.status(400);
       res.redirect(`/users/${routes.changePassword}`);
       return;
@@ -134,6 +138,7 @@ export const postChangePassword = async (req, res) => {
     await req.user.changePassword(oldPassword, newPassword);
     res.redirect(routes.me);
   } catch (error) {
+    req.flash("error", "Can't change password");
     res.status(400);
     res.redirect(`/users/${routes.changePassword}`);
   }

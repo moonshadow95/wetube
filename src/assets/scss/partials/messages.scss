@@ -1,0 +1,43 @@
+@keyframes flashAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(-70px);
+  }
+  5% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-70px);
+  }
+}
+
+.flash-message__container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  padding: 20px;
+  text-align: center;
+  animation: flashAnimation 4s ease-in-out forwards;
+  &.error {
+    background: #e17055;
+  }
+  &.success {
+    background-color: #6c5ce7;
+  }
+  &.info {
+    background-color: #0984e3;
+  }
+  .flash-message__text {
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+  }
+}
