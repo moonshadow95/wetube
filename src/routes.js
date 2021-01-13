@@ -24,8 +24,8 @@ const DELETE_VIDEO = "/:id/delete";
 
 // Github
 
-const GITHUB = "login/auth/github";
-const GITHUB_CALLBACK = "login/auth/github/callback";
+const GITHUB = "/login/auth/github";
+const GITHUB_CALLBACK = "/login/auth/github/callback";
 
 // API
 
